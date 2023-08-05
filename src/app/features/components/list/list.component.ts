@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,7 +14,8 @@ import {
   AngularFireAuth,
   AngularFireAuthModule,
 } from '@angular/fire/compat/auth';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -26,6 +27,7 @@ import {
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
+    FontAwesomeModule,
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
@@ -39,6 +41,8 @@ import {
 export class ListComponent {
   public frm!: FormGroup;
   public studentsData: any[] = [];
+  public faPen = faPen;
+  public faTrash = faTrash;
 
   constructor(private fb: FormBuilder, private listService: ListService) {
     this.validationFrm();
@@ -82,11 +86,11 @@ export class ListComponent {
           .updateOnaddStudent(update_dat)
           .then((res: any) => {
             console.log('res', res);
+            this.frm.reset();
           })
           .catch((err: any) => {
             console.log('err', err);
           });
-        this.frm.reset();
       })
       .catch((err: any) => {
         console.log('err', err);
