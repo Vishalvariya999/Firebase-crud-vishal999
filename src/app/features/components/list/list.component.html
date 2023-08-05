@@ -1,1 +1,44 @@
-<p>list works!</p>
+<div class="container-fluid">
+    <div class="row border rounded m-3 p-2">
+        <div class="col-lg-6">
+            <h2 class="h2 text-center">Registration</h2>
+            <hr>
+            <form class="row" [formGroup]="frm" (ngSubmit)="onSubmit()">
+                <div class="col-lg-6">
+                    <label class="form-lable mb-2">First name</label>
+                    <input type="text" class="form-control" placeholder="Enter first name" formControlName="first_name">
+                </div>
+                <div class="col-lg-6">
+                    <label class="form-lable mb-2">Last name</label>
+                    <input type="text" class="form-control" placeholder="Enter last name" formControlName="last_name">
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <label class="form-lable mb-2">Gender</label>
+                    <select class="form-select" formControlName="gender">
+                        <option value="" selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="col-lg-6 mt-2">
+                    <label class="form-lable mb-2">Phone</label>
+                    <input type="number" class="form-control" formControlName="phone" placeholder="Enter phone number"
+                        id="">
+                </div>
+                <div class="col-lg-6 mt-2 mb-4">
+                    <label class="form-lable mb-2">Email</label>
+                    <input type="text" class="form-control" formControlName="email" placeholder="Enter email address"
+                        id="">
+                </div>
+                <hr>
+                <div>
+                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <h2 class="h2 text-center">List of Employee</h2>
+            <hr>
+        </div>
+    </div>
+</div>
