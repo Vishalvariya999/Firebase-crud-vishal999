@@ -8,7 +8,11 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "standalone": true
+          "standalone": true,
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         },
         "@schematics/angular:directive": {
           "standalone": true
@@ -107,5 +111,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "64967f6c-9899-4d62-8996-40aa24d954fa"
   }
 }
