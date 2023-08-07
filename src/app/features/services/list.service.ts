@@ -7,15 +7,19 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 export class ListService {
   private afs = inject(AngularFirestore);
 
-  getStudentData() {
+  public getStudentData() {
     return this.afs.collection('student-details').snapshotChanges();
   }
 
-  addStudent(data: any) {
+  public addStudent(data: any) {
     return this.afs.collection('student-details').add(data);
   }
 
-  updateOnaddStudent(data: any) {
+  public updateOnaddStudent(data: any) {
     return this.afs.collection('student-details').doc(data.id).set(data);
+  }
+
+  public deleteStudent(id: any) {
+    return this.afs.collection('student-details').doc(id).delete();
   }
 }

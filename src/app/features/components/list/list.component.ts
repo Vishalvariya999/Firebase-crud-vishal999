@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ListService } from '../../services/list.service';
 import {
@@ -29,12 +28,7 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
     AngularFireAuthModule,
     FontAwesomeModule,
   ],
-  providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
-    ListService,
-    AngularFirestore,
-    AngularFireAuth,
-  ],
+  providers: [AngularFirestore, AngularFireAuth],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
@@ -43,6 +37,7 @@ export class ListComponent {
   public studentsData: any[] = [];
   public faPen = faPen;
   public faTrash = faTrash;
+  public btnName: string = 'Save';
 
   constructor(private fb: FormBuilder, private listService: ListService) {
     this.validationFrm();
@@ -85,7 +80,7 @@ export class ListComponent {
         this.listService
           .updateOnaddStudent(update_dat)
           .then((res: any) => {
-            console.log('res', res);
+            // console.log('res', res);
             this.frm.reset();
           })
           .catch((err: any) => {
@@ -100,7 +95,7 @@ export class ListComponent {
   private getStudentData() {
     this.listService.getStudentData().subscribe({
       next: (res: any) => {
-        console.log('res', res);
+        // console.log('res', res);
         this.studentsData = res.map((data: any) => {
           const data1 = {
             id: data.payload.doc.id,
@@ -108,11 +103,30 @@ export class ListComponent {
           };
           return data1;
         });
-        console.log('this.studentsData', this.studentsData);
+        // console.log('this.studentsData', this.studentsData);
       },
       error: (err: any) => {
         console.log('err', err);
       },
     });
+  }
+
+  public onEdit(data: any) {
+    console.log('data', data);
+    this.frm.patchValue(data);
+    this.btnName = 'Update';
+  }
+
+  public onDelete(id: string) {
+    console.log('id', id);
+    this.listService
+      .deleteStudent(id)
+      .then((res: any) => {
+        console.log('res', res);
+        // this.getStudentData();
+      })
+      .catch((err: any) => {
+        console.log('err', err);
+      });
   }
 }

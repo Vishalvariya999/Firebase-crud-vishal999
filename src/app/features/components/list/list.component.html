@@ -32,7 +32,7 @@
                 </div>
                 <hr>
                 <div>
-                    <button type="submit" class="btn btn-md btn-outline-primary">Save</button>
+                    <button type="submit" class="btn btn-md btn-outline-primary">{{btnName}}</button>
                 </div>
             </form>
         </div>
@@ -60,10 +60,10 @@
                         <td>{{data?.phone}}</td>
                         <td>{{data?.email}}</td>
                         <td>
-                            <button class="btn btn-sm btn-outline-success mx-1">
+                            <button class="btn btn-sm btn-outline-success mx-1" (click)="onEdit(data)">
                                 <fa-icon [icon]="faPen"></fa-icon>
                             </button>
-                            <button class="btn btn-sm btn-outline-danger mx-1">
+                            <button class="btn btn-sm btn-outline-danger mx-1" (click)="onDelete(data.id)">
                                 <fa-icon [icon]="faTrash"></fa-icon>
                             </button>
                         </td>
