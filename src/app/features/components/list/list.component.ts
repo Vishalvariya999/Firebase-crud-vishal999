@@ -16,6 +16,7 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { SweetAlertService } from '../../services/sweet-alert.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -126,15 +127,23 @@ export class ListComponent {
 
   public onDelete(id: string) {
     console.log('id', id);
-    this.listService
-      .deleteStudent(id)
-      .then((res: any) => {
+    this.sweetAlertService.confirm().subscribe({
+      next: (res: any) => {
         console.log('res', res);
-        // this.getStudentData();
-        this.sweetAlertService.success('Data delete succesfully');
-      })
-      .catch((err: any) => {
-        console.log('err', err);
-      });
+        if (res.isConfirmed) {
+          this.listService
+            .deleteStudent(id)
+            .then((res: any) => {
+              console.log('res', res);
+              this.sweetAlertService.success('Data delete succesfully');
+            })
+            .catch((err: any) => {
+              console.log('err', err);
+            });
+        } else {
+          this.sweetAlertService.error('Your imaginary file is safe :)');
+        }
+      },
+    });
   }
 }
