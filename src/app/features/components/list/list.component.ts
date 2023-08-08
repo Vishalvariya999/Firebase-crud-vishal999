@@ -15,6 +15,7 @@ import {
 } from '@angular/fire/compat/auth';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -39,7 +40,11 @@ export class ListComponent {
   public faTrash = faTrash;
   public btnName: string = 'Save';
 
-  constructor(private fb: FormBuilder, private listService: ListService) {
+  constructor(
+    private fb: FormBuilder,
+    private listService: ListService,
+    private sweetAlertService: SweetAlertService
+  ) {
     this.validationFrm();
   }
 
@@ -82,9 +87,11 @@ export class ListComponent {
           .then((res: any) => {
             // console.log('res', res);
             this.frm.reset();
+            this.sweetAlertService.success('Insert successfully');
           })
           .catch((err: any) => {
             console.log('err', err);
+            this.sweetAlertService.error('Please fill properly');
           });
       })
       .catch((err: any) => {
@@ -124,6 +131,7 @@ export class ListComponent {
       .then((res: any) => {
         console.log('res', res);
         // this.getStudentData();
+        this.sweetAlertService.success('Data delete succesfully');
       })
       .catch((err: any) => {
         console.log('err', err);
