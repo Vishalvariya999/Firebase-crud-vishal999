@@ -40,6 +40,7 @@ export class ListComponent {
   public faPen = faPen;
   public faTrash = faTrash;
   public btnName: string = 'Save';
+  public userId!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -72,34 +73,50 @@ export class ListComponent {
       return;
     }
     console.log('this.frm.value', this.frm.value);
-    const data = {
+    let data = {
       ...this.frm.value,
     };
+    if (this.userId) {
+      console.log('this.userId', this.userId);
+      data = {
+        ...this.frm.value,
+        id: this.userId,
+      };
+      this.updateData(data);
+      this.userId = '';
+    } else {
+      this.listService
+        .addStudent(data)
+        .then((res: any) => {
+          console.log('res', res);
+          const update_dat = {
+            id: res.id,
+            ...data,
+          };
+          this.updateData(update_dat);
+        })
+        .catch((err: any) => {
+          console.log('err', err);
+        });
+    }
+  }
+
+  private updateData(update_dat: any) {
     this.listService
-      .addStudent(data)
+      .updateOnaddStudent(update_dat)
       .then((res: any) => {
-        console.log('res', res);
-        const update_dat = {
-          id: res.id,
-          ...data,
-        };
-        this.listService
-          .updateOnaddStudent(update_dat)
-          .then((res: any) => {
-            // console.log('res', res);
-            this.frm.reset();
-            this.sweetAlertService.success('Insert successfully');
-          })
-          .catch((err: any) => {
-            console.log('err', err);
-            this.sweetAlertService.error('Please fill properly');
-          });
+        console.log('update_dat', update_dat);
+        // console.log('res', res);
+        this.frm.reset();
+        update_dat.id
+          ? this.sweetAlertService.success('Insert successfully')
+          : this.sweetAlertService.success('Update data successfully');
       })
       .catch((err: any) => {
         console.log('err', err);
+        this.sweetAlertService.error('Please fill properly');
       });
   }
-
   private getStudentData() {
     this.listService.getStudentData().subscribe({
       next: (res: any) => {
@@ -121,8 +138,9 @@ export class ListComponent {
 
   public onEdit(data: any) {
     console.log('data', data);
+    this.userId = data.id;
     this.frm.patchValue(data);
-    this.btnName = 'Update';
+    // this.btnName = 'Update';
   }
 
   public onDelete(id: string) {
