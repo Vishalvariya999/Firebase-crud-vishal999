@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
@@ -6,6 +7,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class ListService {
   private afs = inject(AngularFirestore);
+  private http = inject(HttpClient);
 
   public getStudentData() {
     return this.afs.collection('student-details').snapshotChanges();
@@ -21,5 +23,9 @@ export class ListService {
 
   public deleteStudent(id: any) {
     return this.afs.collection('student-details').doc(id).delete();
+  }
+
+  public products() {
+    return this.http.get(`https://dummyjson.com/products`);
   }
 }
