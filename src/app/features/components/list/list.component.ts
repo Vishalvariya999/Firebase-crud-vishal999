@@ -16,7 +16,6 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { SweetAlertService } from '../../services/sweet-alert.service';
-import Swal from 'sweetalert2';
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -30,7 +29,7 @@ import Swal from 'sweetalert2';
     AngularFireAuthModule,
     FontAwesomeModule,
   ],
-  providers: [AngularFirestore, AngularFireAuth],
+  providers: [AngularFirestore, AngularFireAuth, ListService],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
