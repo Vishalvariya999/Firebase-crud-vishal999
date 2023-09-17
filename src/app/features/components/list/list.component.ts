@@ -69,6 +69,7 @@ export class ListComponent {
 
   public onSubmit() {
     if (this.frm.invalid) {
+      this.sweetAlertService.error('Please form fill properly');
       return;
     }
     console.log('this.frm.value', this.frm.value);
