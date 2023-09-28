@@ -5,35 +5,46 @@
             <hr>
             <form class="row" [formGroup]="frm" (ngSubmit)="onSubmit()">
                 <div class="col-lg-6">
-                    <label class="form-lable mb-2">First name</label>
-                    <input type="text" class="form-control" placeholder="Enter first name" formControlName="first_name">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>First name</mat-label>
+                        <input type="text" matInput formControlName="first_name">
+                    </mat-form-field>
                 </div>
-                <div class="col-lg-6 mt-2">
-                    <label class="form-lable mb-2">Last name</label>
-                    <input type="text" class="form-control" placeholder="Enter last name" formControlName="last_name">
+                <div class="col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Last name</mat-label>
+                        <input type="text" matInput formControlName="last_name">
+                    </mat-form-field>
                 </div>
                 <div class="col-lg-12 mt-2">
-                    <label class="form-lable mb-2">Gender</label>
-                    <select class="form-select rotate-select" formControlName="gender">
-                        <option value="" [selected]="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
+                    <mat-form-field class="example-full-width" style="width: 480px;">
+                        <mat-label>Select Gender</mat-label>
+                        <mat-select formControlName="gender">
+                            <mat-option *ngFor="let gen of genders" [value]="gen.value">
+                                {{gen.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
                 <div class="col-lg-6 mt-2">
-                    <label class="form-lable mb-2">Phone</label>
-                    <input type="tel" class="form-control" formControlName="phone" placeholder="Enter phone number"
-                        id="">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Phone</mat-label>
+                        <input type="number" matInput #postalCode maxlength="10" formControlName="phone">
+                        <mat-hint align="end">{{postalCode.value.length}} / 10</mat-hint>
+                    </mat-form-field>
                 </div>
                 <div class="col-lg-6 mt-2 mb-4">
-                    <label class="form-lable mb-2">Email</label>
-                    <input type="text" class="form-control" formControlName="email" placeholder="Enter email address"
-                        id="">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Email address</mat-label>
+                        <input type="email" matInput formControlName="email">
+                    </mat-form-field>
                 </div>
                 <hr>
                 <div>
-                    <button type="submit" class="btn btn-md btn-outline-primary">{{userId ? 'Update' :
-                        'Submit'}}</button>
+                    <!-- <button type="submit" class="btn btn-md btn-outline-primary">{{userId ? 'Update' :
+                        'Submit'}}</button> -->
+                    <button mat-raised-button color="primary">{{userId ? 'Update' :
+                        '+ Add Details'}}</button>
                 </div>
             </form>
         </div>

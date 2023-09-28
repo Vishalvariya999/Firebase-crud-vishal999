@@ -16,6 +16,11 @@ import {
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { SweetAlertService } from '../../services/sweet-alert.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-list',
   standalone: true,
@@ -28,6 +33,10 @@ import { SweetAlertService } from '../../services/sweet-alert.service';
     AngularFirestoreModule,
     AngularFireAuthModule,
     FontAwesomeModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [AngularFirestore, AngularFireAuth, ListService],
   templateUrl: './list.component.html',
@@ -40,6 +49,16 @@ export class ListComponent {
   public faTrash = faTrash;
   public btnName: string = 'Save';
   public userId!: string;
+  public genders: any = [
+    {
+      name: 'Male',
+      value: 'Male',
+    },
+    {
+      name: 'Female',
+      value: 'Female',
+    },
+  ];
 
   constructor(
     private fb: FormBuilder,
