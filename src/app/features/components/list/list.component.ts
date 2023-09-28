@@ -60,6 +60,17 @@ export class ListComponent {
     },
   ];
 
+  public statuses: any = [
+    {
+      name: 'Active',
+      value: 'Active',
+    },
+    {
+      name: 'In Avtive',
+      value: 'In Avtive',
+    },
+  ];
+
   constructor(
     private fb: FormBuilder,
     private listService: ListService,
@@ -75,6 +86,7 @@ export class ListComponent {
       phone: [null, [Validators.required]],
       email: [null, [Validators.required]],
       gender: [null, [Validators.required]],
+      status: [null, [Validators.required]],
     });
   }
 

@@ -25,3 +25,7 @@ h2 {
 .cursor-pointer {
     cursor: pointer;
 }
+
+::ng-deep .cdk-overlay-container {
+    z-index: 9999;
+}
